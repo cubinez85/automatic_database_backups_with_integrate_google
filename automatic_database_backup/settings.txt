@@ -1,0 +1,26 @@
+# Запустим полный тест
+curl -s http://backups.cubinez.ru/ | head -c 50
+echo
+curl -s http://backups.cubinez.ru/health
+echo
+curl -s http://backups.cubinez.ru/api/backup/test
+echo
+
+# Создадим тестовый бэкап
+curl -s -X POST http://backups.cubinez.ru/api/backup/run
+echo
+
+# Полная очистка кэша
+sudo systemctl stop automatic_database_backup.service 2>/dev/null
+pkill -f "gunicorn" 2>/dev/null
+pkill -f "flask" 2>/dev/null
+
+# Удаление кэша
+find /var/www/automatic_database_backup -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null
+find /var/www/automatic_database_backup -name "*.pyc" -delete 2>/dev/null
+rm -rf /tmp/*flask* 2>/dev/null
+
+# Перезапуск
+sudo systemctl start automatic_database_backup.service 2>/dev/null
+
+curl -u admin:your_password http://backups.cubinez.ru/admin/ 2>&1 | head -50

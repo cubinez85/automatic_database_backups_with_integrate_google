@@ -1,0 +1,16 @@
+[2026-02-04 08:19:46 +0300] [919] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 08:19:46 +0300] [919] [INFO] Listening at: http://127.0.0.1:8080 (919)
+[2026-02-04 08:19:46 +0300] [919] [INFO] Using worker: sync
+[2026-02-04 08:19:46 +0300] [921] [INFO] Booting worker with pid: 921
+[2026-02-04 08:22:11 +0300] [921] [INFO] Worker exiting (pid: 921)
+[2026-02-04 08:22:11 +0300] [919] [INFO] Handling signal: term
+[2026-02-04 08:22:11 +0300] [919] [ERROR] Worker (pid:921) was sent SIGTERM!
+[2026-02-04 08:22:11 +0300] [919] [INFO] Shutting down: Master
+[2026-02-04 08:22:11 +0300] [952] [INFO] Starting gunicorn 21.2.0
+[2026-02-04 08:22:11 +0300] [952] [INFO] Listening at: http://127.0.0.1:8080 (952)
+[2026-02-04 08:22:11 +0300] [952] [INFO] Using worker: sync
+[2026-02-04 08:22:11 +0300] [953] [INFO] Booting worker with pid: 953
+[2026-02-04 08:23:45 +0300] [953] [INFO] Worker exiting (pid: 953)
+[2026-02-04 08:23:45 +0300] [952] [INFO] Handling signal: term
+[2026-02-04 08:23:45 +0300] [952] [ERROR] Worker (pid:953) was sent SIGTERM!
+[2026-02-04 08:23:46 +0300] [952] [INFO] Shutting down: Master

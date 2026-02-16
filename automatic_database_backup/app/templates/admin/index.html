@@ -1,0 +1,114 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<div class="container">
+    <h1>📊 Backup System Dashboard</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Всего бэкапов</div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ stats.total_backups }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Успешных</div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ stats.successful_backups }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Ошибок</div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ stats.failed_backups }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Конфигураций</div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ stats.config_count }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Последние бэкапы</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Статус</th>
+                                <th>Файл</th>
+                                <th>Лист</th>
+                                <th>Строк</th>
+                                <th>Длительность</th>
+                                <th>Создан</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for backup in stats.recent_backups %}
+                            <tr>
+                                <td>{{ backup.id }}</td>
+                                <td>
+                                    {% if backup.status == 'success' %}
+                                    <span class="badge bg-success">Успех</span>
+                                    {% elif backup.status == 'failed' %}
+                                    <span class="badge bg-danger">Ошибка</span>
+                                    {% else %}
+                                    <span class="badge bg-warning">{{ backup.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ backup.filename }}</td>
+                                <td>{{ backup.sheet_name }}</td>
+                                <td>{{ backup.rows_count }}</td>
+                                <td>{{ "%.2f"|format(backup.duration) }}s</td>
+                                <td>{{ backup.created_at.strftime('%Y-%m-%d %H:%M') if backup.created_at else '' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Быстрые действия</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/api/backup/run" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-play"></i> Запустить бэкап
+                        </button>
+                    </form>
+                    <a href="{{ url_for('backuplog.index_view') }}" class="btn btn-secondary">
+                        <i class="glyphicon glyphicon-list"></i> Все логи
+                    </a>
+                    <a href="{{ url_for('backupconfig.index_view') }}" class="btn btn-secondary">
+                        <i class="glyphicon glyphicon-cog"></i> Конфигурации
+                    </a>
+                    <a href="/health" class="btn btn-info" target="_blank">
+                        <i class="glyphicon glyphicon-heart"></i> Проверить здоровье
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

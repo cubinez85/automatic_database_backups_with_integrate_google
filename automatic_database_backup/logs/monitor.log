@@ -1,0 +1,7 @@
+[2026-02-05 18:57:36] Starting system check...
+[2026-02-05 18:57:36] OK: Service is active
+[2026-02-05 18:57:36] OK: Port 8000 listening
+[2026-02-05 18:57:36] OK: Health check passed
+[2026-02-05 18:57:36] OK: Disk usage is 1%
+[2026-02-05 18:57:36] WARNING: Found 11 errors in recent logs
+[2026-02-05 18:57:36] System check completed
